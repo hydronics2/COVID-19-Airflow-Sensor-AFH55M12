@@ -5244,7 +5244,7 @@ The Slot footprint only works if the mill layer is transmitted to the PCB fab ho
 <sheet>
 <plain>
 <text x="-35.56" y="43.18" size="1.778" layer="91">I2C Pullup</text>
-<text x="-40.132" y="130.81" size="1.778" layer="91" align="top-left">Generic OLED Display
+<text x="-32.512" y="123.19" size="1.778" layer="91" align="top-left">Generic OLED Display
 128 x 64 Pixels</text>
 <text x="218.44" y="170.18" size="1.778" layer="91">Adafruit ItsyBitsy M0, M4, or 32u4 3V
 https://www.adafruit.com/category/1008</text>
@@ -5257,16 +5257,20 @@ https://www.adafruit.com/category/777</text>
 <text x="144.78" y="40.64" size="1.778" layer="91" align="bottom-right">User Defined</text>
 <text x="241.3" y="35.56" size="1.778" layer="91" align="bottom-right">Audio Alarm
 Generic Piezo w/6.5mm leads</text>
-<text x="-55.88" y="17.272" size="1.778" layer="91">Rotary Encoder w/ mom switch
+<text x="129.54" y="116.332" size="1.778" layer="91">Rotary Encoder w/ mom switch
 Bourns PEC12R-4220F-S0012-ND</text>
-<text x="-53.34" y="83.82" size="1.778" layer="91">Generic 3.3v Regulator
+<text x="-48.26" y="81.28" size="1.778" layer="91">Generic 3.3v Regulator
 </text>
-<text x="-55.88" y="83.312" size="1.778" layer="91">
+<text x="-53.34" y="80.772" size="1.778" layer="91">
 https://www.mouser.com/ProductDetail/511-LDL1117S33R</text>
 <text x="45.72" y="91.44" size="1.778" layer="97">For I2C, CSB pulled high
 SDI=SDA, SCK=SCL
 
 SDO: Slave address LSB(GND='0', VCC = '1')</text>
+<text x="-35.052" y="168.91" size="1.778" layer="91" align="top-left">Header for Automotive Sensor</text>
+<text x="30.48" y="174.752" size="1.778" layer="91">Pressure Sensors
+BME280
+828-1063-1-ND</text>
 </plain>
 <instances>
 <instance part="U$1" gate="G$1" x="-25.4" y="106.68" smashed="yes">
@@ -5359,24 +5363,24 @@ SDO: Slave address LSB(GND='0', VCC = '1')</text>
 <instance part="GND8" gate="1" x="233.68" y="-5.08" smashed="yes">
 <attribute name="VALUE" x="231.14" y="-7.62" size="1.778" layer="96"/>
 </instance>
-<instance part="S5" gate="G$1" x="-15.24" y="-10.16" smashed="yes">
-<attribute name="NAME" x="-22.86" y="-2.286" size="1.778" layer="95" font="vector"/>
-<attribute name="VALUE" x="-22.86" y="-18.034" size="1.778" layer="96" font="vector" align="top-left"/>
+<instance part="S5" gate="G$1" x="149.86" y="88.9" smashed="yes">
+<attribute name="NAME" x="142.24" y="96.774" size="1.778" layer="95" font="vector"/>
+<attribute name="VALUE" x="142.24" y="81.026" size="1.778" layer="96" font="vector" align="top-left"/>
 </instance>
-<instance part="GND4" gate="1" x="-33.02" y="-15.24" smashed="yes" rot="R270">
-<attribute name="VALUE" x="-35.56" y="-12.7" size="1.778" layer="96" rot="R270"/>
+<instance part="GND4" gate="1" x="132.08" y="83.82" smashed="yes" rot="R270">
+<attribute name="VALUE" x="129.54" y="86.36" size="1.778" layer="96" rot="R270"/>
 </instance>
-<instance part="GND9" gate="1" x="7.62" y="-10.16" smashed="yes" rot="R90">
-<attribute name="VALUE" x="10.16" y="-12.7" size="1.778" layer="96" rot="R90"/>
+<instance part="GND9" gate="1" x="172.72" y="88.9" smashed="yes" rot="R90">
+<attribute name="VALUE" x="175.26" y="86.36" size="1.778" layer="96" rot="R90"/>
 </instance>
-<instance part="R26" gate="G$1" x="2.54" y="2.54" smashed="yes" rot="R90">
-<attribute name="VALUE" x="4.064" y="2.54" size="1.778" layer="96" font="vector" rot="R90" align="top-center"/>
+<instance part="R26" gate="G$1" x="167.64" y="101.6" smashed="yes" rot="R90">
+<attribute name="VALUE" x="169.164" y="101.6" size="1.778" layer="96" font="vector" rot="R90" align="top-center"/>
 </instance>
-<instance part="R27" gate="G$1" x="2.54" y="-25.4" smashed="yes" rot="R90">
-<attribute name="VALUE" x="4.064" y="-25.4" size="1.778" layer="96" font="vector" rot="R90" align="top-center"/>
+<instance part="R27" gate="G$1" x="167.64" y="73.66" smashed="yes" rot="R90">
+<attribute name="VALUE" x="169.164" y="73.66" size="1.778" layer="96" font="vector" rot="R90" align="top-center"/>
 </instance>
-<instance part="R28" gate="G$1" x="-30.48" y="2.54" smashed="yes" rot="R90">
-<attribute name="VALUE" x="-28.956" y="2.54" size="1.778" layer="96" font="vector" rot="R90" align="top-center"/>
+<instance part="R28" gate="G$1" x="134.62" y="101.6" smashed="yes" rot="R90">
+<attribute name="VALUE" x="136.144" y="101.6" size="1.778" layer="96" font="vector" rot="R90" align="top-center"/>
 </instance>
 <instance part="S4" gate="G$1" x="276.86" y="0" smashed="yes" rot="R90">
 <attribute name="NAME" x="271.018" y="-2.54" size="1.27" layer="95" rot="R90"/>
@@ -5390,17 +5394,17 @@ SDO: Slave address LSB(GND='0', VCC = '1')</text>
 <instance part="GND13" gate="1" x="264.16" y="10.16" smashed="yes" rot="R180">
 <attribute name="VALUE" x="266.7" y="12.7" size="1.778" layer="96" rot="R180"/>
 </instance>
-<instance part="J2" gate="G$1" x="271.78" y="-27.94" smashed="yes">
-<attribute name="VALUE" x="269.24" y="-32.766" size="1.778" layer="96" font="vector"/>
-<attribute name="NAME" x="269.24" y="-24.892" size="1.778" layer="95" font="vector"/>
+<instance part="J2" gate="G$1" x="15.24" y="121.92" smashed="yes" rot="R90">
+<attribute name="VALUE" x="20.066" y="119.38" size="1.778" layer="96" font="vector" rot="R90"/>
+<attribute name="NAME" x="12.192" y="119.38" size="1.778" layer="95" font="vector" rot="R90"/>
 </instance>
-<instance part="J3" gate="G$1" x="259.08" y="-27.94" smashed="yes">
-<attribute name="VALUE" x="256.54" y="-32.766" size="1.778" layer="96" font="vector"/>
-<attribute name="NAME" x="256.54" y="-24.892" size="1.778" layer="95" font="vector"/>
+<instance part="J3" gate="G$1" x="15.24" y="109.22" smashed="yes" rot="R90">
+<attribute name="VALUE" x="20.066" y="106.68" size="1.778" layer="96" font="vector" rot="R90"/>
+<attribute name="NAME" x="12.192" y="106.68" size="1.778" layer="95" font="vector" rot="R90"/>
 </instance>
-<instance part="J4" gate="G$1" x="243.84" y="-27.94" smashed="yes">
-<attribute name="VALUE" x="241.3" y="-32.766" size="1.778" layer="96" font="vector"/>
-<attribute name="NAME" x="241.3" y="-24.892" size="1.778" layer="95" font="vector"/>
+<instance part="J4" gate="G$1" x="15.24" y="93.98" smashed="yes" rot="R90">
+<attribute name="VALUE" x="20.066" y="91.44" size="1.778" layer="96" font="vector" rot="R90"/>
+<attribute name="NAME" x="12.192" y="91.44" size="1.778" layer="95" font="vector" rot="R90"/>
 </instance>
 <instance part="Q2" gate="G$1" x="231.14" y="7.62" smashed="yes">
 <attribute name="NAME" x="233.68" y="7.62" size="1.778" layer="95" font="vector"/>
@@ -5489,11 +5493,11 @@ SDO: Slave address LSB(GND='0', VCC = '1')</text>
 <instance part="U$12" gate="G$1" x="-15.24" y="30.48" smashed="yes" rot="R270">
 <attribute name="VALUE" x="-14.224" y="32.004" size="1.27" layer="96" rot="R270"/>
 </instance>
-<instance part="U$13" gate="G$1" x="2.54" y="10.16" smashed="yes">
-<attribute name="VALUE" x="1.016" y="11.176" size="1.27" layer="96"/>
+<instance part="U$13" gate="G$1" x="167.64" y="109.22" smashed="yes">
+<attribute name="VALUE" x="166.116" y="110.236" size="1.27" layer="96"/>
 </instance>
-<instance part="U$14" gate="G$1" x="-30.48" y="10.16" smashed="yes">
-<attribute name="VALUE" x="-32.004" y="11.176" size="1.27" layer="96"/>
+<instance part="U$14" gate="G$1" x="134.62" y="109.22" smashed="yes">
+<attribute name="VALUE" x="133.096" y="110.236" size="1.27" layer="96"/>
 </instance>
 <instance part="SJ3" gate="G$1" x="205.74" y="160.02" smashed="yes" rot="MR0">
 <attribute name="NAME" x="208.28" y="162.56" size="1.778" layer="95" rot="MR0"/>
@@ -5501,8 +5505,8 @@ SDO: Slave address LSB(GND='0', VCC = '1')</text>
 <instance part="U$15" gate="G$1" x="198.12" y="160.02" smashed="yes" rot="R90">
 <attribute name="VALUE" x="197.104" y="158.496" size="1.27" layer="96" rot="R90"/>
 </instance>
-<instance part="U$16" gate="G$1" x="2.54" y="-33.02" smashed="yes" rot="R180">
-<attribute name="VALUE" x="4.064" y="-34.036" size="1.27" layer="96" rot="R180"/>
+<instance part="U$16" gate="G$1" x="167.64" y="66.04" smashed="yes" rot="R180">
+<attribute name="VALUE" x="169.164" y="65.024" size="1.27" layer="96" rot="R180"/>
 </instance>
 <instance part="SUPPLY1" gate="G$1" x="-12.7" y="149.86" smashed="yes" rot="R180">
 <attribute name="VALUE" x="-12.7" y="147.066" size="1.778" layer="96" rot="R180" align="bottom-center"/>
@@ -5686,12 +5690,12 @@ SDO: Slave address LSB(GND='0', VCC = '1')</text>
 </segment>
 <segment>
 <pinref part="S5" gate="G$1" pin="SW-"/>
-<wire x1="-25.4" y1="-15.24" x2="-30.48" y2="-15.24" width="0.1524" layer="91"/>
+<wire x1="139.7" y1="83.82" x2="134.62" y2="83.82" width="0.1524" layer="91"/>
 <pinref part="GND4" gate="1" pin="GND"/>
 </segment>
 <segment>
 <pinref part="S5" gate="G$1" pin="C"/>
-<wire x1="-5.08" y1="-10.16" x2="5.08" y2="-10.16" width="0.1524" layer="91"/>
+<wire x1="160.02" y1="88.9" x2="170.18" y2="88.9" width="0.1524" layer="91"/>
 <pinref part="GND9" gate="1" pin="GND"/>
 </segment>
 <segment>
@@ -5873,15 +5877,21 @@ SDO: Slave address LSB(GND='0', VCC = '1')</text>
 <wire x1="116.84" y1="27.94" x2="116.84" y2="-15.24" width="0.1524" layer="91" style="shortdash"/>
 <wire x1="116.84" y1="-15.24" x2="187.96" y2="-15.24" width="0.1524" layer="91" style="shortdash"/>
 <wire x1="187.96" y1="-15.24" x2="187.96" y2="43.18" width="0.1524" layer="91" style="shortdash"/>
-<wire x1="187.96" y1="-15.24" x2="254" y2="-15.24" width="0.1524" layer="91" style="shortdash"/>
+<wire x1="187.96" y1="-15.24" x2="228.6" y2="-15.24" width="0.1524" layer="91" style="shortdash"/>
+<wire x1="228.6" y1="-15.24" x2="254" y2="-15.24" width="0.1524" layer="91" style="shortdash"/>
 <wire x1="254" y1="-15.24" x2="254" y2="43.18" width="0.1524" layer="91" style="shortdash"/>
-<wire x1="-58.42" y1="22.86" x2="-58.42" y2="-43.18" width="0.1524" layer="91" style="shortdash"/>
-<wire x1="-58.42" y1="-43.18" x2="25.4" y2="-43.18" width="0.1524" layer="91" style="shortdash"/>
-<wire x1="25.4" y1="-43.18" x2="25.4" y2="22.86" width="0.1524" layer="91" style="shortdash"/>
-<wire x1="116.84" y1="-15.24" x2="63.5" y2="-15.24" width="0.1524" layer="91" style="shortdash"/>
+<wire x1="-58.42" y1="22.86" x2="-58.42" y2="-15.24" width="0.1524" layer="91" style="shortdash"/>
+<wire x1="-58.42" y1="-15.24" x2="25.4" y2="-15.24" width="0.1524" layer="91" style="shortdash"/>
+<wire x1="25.4" y1="-15.24" x2="25.4" y2="22.86" width="0.1524" layer="91" style="shortdash"/>
+<wire x1="116.84" y1="-15.24" x2="78.74" y2="-15.24" width="0.1524" layer="91" style="shortdash"/>
+<wire x1="78.74" y1="-15.24" x2="63.5" y2="-15.24" width="0.1524" layer="91" style="shortdash"/>
 <wire x1="63.5" y1="-15.24" x2="63.5" y2="27.94" width="0.1524" layer="91" style="shortdash"/>
 <wire x1="63.5" y1="27.94" x2="116.84" y2="27.94" width="0.1524" layer="91" style="shortdash"/>
 <wire x1="63.5" y1="27.94" x2="63.5" y2="58.42" width="0.1524" layer="91" style="shortdash"/>
+<wire x1="116.84" y1="58.42" x2="116.84" y2="182.88" width="0.1524" layer="91" style="shortdash"/>
+<wire x1="25.4" y1="-15.24" x2="63.5" y2="-15.24" width="0.1524" layer="91" style="shortdash"/>
+<wire x1="292.1" y1="-15.24" x2="292.1" y2="43.18" width="0.1524" layer="91" style="shortdash"/>
+<wire x1="254" y1="-15.24" x2="292.1" y2="-15.24" width="0.1524" layer="91" style="shortdash"/>
 </segment>
 </net>
 <net name="SWITCH1" class="0">
@@ -5909,11 +5919,11 @@ SDO: Slave address LSB(GND='0', VCC = '1')</text>
 </segment>
 <segment>
 <pinref part="S5" gate="G$1" pin="SW+"/>
-<wire x1="-25.4" y1="-5.08" x2="-30.48" y2="-5.08" width="0.1524" layer="91"/>
-<label x="-53.34" y="-5.08" size="1.778" layer="95"/>
-<wire x1="-30.48" y1="-5.08" x2="-38.1" y2="-5.08" width="0.1524" layer="91"/>
-<wire x1="-30.48" y1="-2.54" x2="-30.48" y2="-5.08" width="0.1524" layer="91"/>
-<junction x="-30.48" y="-5.08"/>
+<wire x1="139.7" y1="93.98" x2="134.62" y2="93.98" width="0.1524" layer="91"/>
+<label x="121.92" y="91.44" size="1.778" layer="95"/>
+<wire x1="134.62" y1="93.98" x2="127" y2="93.98" width="0.1524" layer="91"/>
+<wire x1="134.62" y1="96.52" x2="134.62" y2="93.98" width="0.1524" layer="91"/>
+<junction x="134.62" y="93.98"/>
 <pinref part="R28" gate="G$1" pin="1"/>
 </segment>
 <segment>
@@ -6011,12 +6021,12 @@ SDO: Slave address LSB(GND='0', VCC = '1')</text>
 <net name="ROTARY_A" class="0">
 <segment>
 <pinref part="S5" gate="G$1" pin="A"/>
-<wire x1="-5.08" y1="-15.24" x2="2.54" y2="-15.24" width="0.1524" layer="91"/>
+<wire x1="160.02" y1="83.82" x2="167.64" y2="83.82" width="0.1524" layer="91"/>
 <pinref part="R27" gate="G$1" pin="2"/>
-<wire x1="2.54" y1="-15.24" x2="2.54" y2="-20.32" width="0.1524" layer="91"/>
-<junction x="2.54" y="-15.24"/>
-<wire x1="2.54" y1="-15.24" x2="7.62" y2="-15.24" width="0.1524" layer="91"/>
-<label x="7.62" y="-15.24" size="1.778" layer="95"/>
+<wire x1="167.64" y1="83.82" x2="167.64" y2="78.74" width="0.1524" layer="91"/>
+<junction x="167.64" y="83.82"/>
+<wire x1="167.64" y1="83.82" x2="172.72" y2="83.82" width="0.1524" layer="91"/>
+<label x="172.72" y="83.82" size="1.778" layer="95"/>
 </segment>
 <segment>
 <pinref part="MS2" gate="G$1" pin="GPIO6"/>
@@ -6032,12 +6042,12 @@ SDO: Slave address LSB(GND='0', VCC = '1')</text>
 <net name="ROTARY_B" class="0">
 <segment>
 <pinref part="S5" gate="G$1" pin="B"/>
-<wire x1="-5.08" y1="-5.08" x2="2.54" y2="-5.08" width="0.1524" layer="91"/>
+<wire x1="160.02" y1="93.98" x2="167.64" y2="93.98" width="0.1524" layer="91"/>
 <pinref part="R26" gate="G$1" pin="1"/>
-<wire x1="2.54" y1="-5.08" x2="2.54" y2="-2.54" width="0.1524" layer="91"/>
-<wire x1="2.54" y1="-5.08" x2="7.62" y2="-5.08" width="0.1524" layer="91"/>
-<junction x="2.54" y="-5.08"/>
-<label x="7.62" y="-5.08" size="1.778" layer="95"/>
+<wire x1="167.64" y1="93.98" x2="167.64" y2="96.52" width="0.1524" layer="91"/>
+<wire x1="167.64" y1="93.98" x2="172.72" y2="93.98" width="0.1524" layer="91"/>
+<junction x="167.64" y="93.98"/>
+<label x="172.72" y="93.98" size="1.778" layer="95"/>
 </segment>
 <segment>
 <pinref part="MS2" gate="G$1" pin="GPIO5"/>
