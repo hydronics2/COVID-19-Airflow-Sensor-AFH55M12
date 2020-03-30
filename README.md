@@ -21,6 +21,10 @@ Installed sensor in a 1" tube. Only showing inhales
 ![foo](https://github.com/hydronics2/COVID-19-Airflow-Sensor-AFH55M12/blob/master/pics/bench_setup2.PNG)
 ![foo](https://github.com/hydronics2/COVID-19-Airflow-Sensor-AFH55M12/blob/master/pics/sensor1.PNG)
 ![foo](https://github.com/hydronics2/COVID-19-Airflow-Sensor-AFH55M12/blob/master/pics/sensor2.PNG)
+![foo](https://github.com/hydronics2/COVID-19-Airflow-Sensor-AFH55M12/blob/master/pics/sensor_diagram.PNG)
+![foo](https://github.com/hydronics2/COVID-19-Airflow-Sensor-AFH55M12/blob/master/pics/airflow_sensor_integration.PNG)
+![foo](https://github.com/hydronics2/COVID-19-Airflow-Sensor-AFH55M12/blob/master/pics/3dmodel_top.PNG)
+![foo](https://github.com/hydronics2/COVID-19-Airflow-Sensor-AFH55M12/blob/master/pics/3dmodel_bottom.PNG)
 
 
 ### Sensor Availability
