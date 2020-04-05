@@ -1,8 +1,10 @@
 /*
-Libraries needed:
-https://github.com/adafruit/Adafruit_SSD1306
-https://github.com/adafruit/Adafruit-GFX-Library
-
+ * Tested with an Adafruit Feather ESP32 
+ * 
+ * 
+ * Libraries needed:
+ * https://github.com/adafruit/Adafruit_SSD1306
+ * https://github.com/adafruit/Adafruit-GFX-Library
 */
 
 #include <Adafruit_GFX.h>  // Include core graphics library for the display
