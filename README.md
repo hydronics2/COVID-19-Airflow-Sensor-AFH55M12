@@ -10,6 +10,13 @@ This is a quick study of using an inexpensive off-the-shelf automotive airflow t
 
 Reading from an automotive mass airflow sensor using a microController 12bit ADC, 20ms interval
 
+
+### --- Updates April 6th -- 3D print by @john Grano on Slack
+
+![foo](https://github.com/hydronics2/COVID-19-Airflow-Sensor-AFH55M12/blob/master/pics/3d_print.PNG)
+![foo](https://github.com/hydronics2/COVID-19-Airflow-Sensor-AFH55M12/blob/master/pics/3d_print2.PNG)
+
+
 ###  --- Updates April 4th -- Arduino Sketch show airflow
 The arduino sketch shows estimated ariflow volume in mL.
 
