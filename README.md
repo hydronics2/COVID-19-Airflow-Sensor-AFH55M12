@@ -15,6 +15,7 @@ Reading from an automotive mass airflow sensor using a microController 12bit ADC
 
 ![foo](https://github.com/hydronics2/COVID-19-Airflow-Sensor-AFH55M12/blob/master/pics/3d_print.PNG)
 ![foo](https://github.com/hydronics2/COVID-19-Airflow-Sensor-AFH55M12/blob/master/pics/3d_print2.PNG)
+![foo](https://github.com/hydronics2/COVID-19-Airflow-Sensor-AFH55M12/blob/master/pics/3d_print3.PNG)
 
 
 ###  --- Updates April 4th -- Arduino Sketch show airflow
