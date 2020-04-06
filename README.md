@@ -57,3 +57,4 @@ The sensor shows up as multiple part values. It fits a 1998 Nissan/Datsun Truck 
 
 #### Parts List
 - oled display is a generic [0.96" 128X64 I2C OLED](https://www.ebay.com/sch/i.html?_from=R40&_trksid=m570.l1313&_nkw=0.96%22+128X64+I2C+OLED&_sacat=0)
+- BME280 pressure sensor [828-1063-1-ND](https://www.digikey.com/product-detail/en/bosch-sensortec/BME280/828-1063-1-ND/6136314)
