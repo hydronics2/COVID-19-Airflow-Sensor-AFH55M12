@@ -35,11 +35,16 @@ Installed sensor in a 1" tube. Only showing inhales
 ![foo](https://github.com/hydronics2/COVID-19-Airflow-Sensor-AFH55M12/blob/master/pics/schematic.PNG)
 
 ### Sensor Availability
+The sensor shows up as multiple part values. It fits a 1998 Nissan Frontier among other years and other vehicles.
 - [China](https://www.aliexpress.com/item/32989444018.html?spm=a2g0o.cart.0.0.74dd3c00g1XL5u&mp=1)
 - [US Supplier](https://www.amazon.com/gp/product/B074FZMGWG/ref=ppx_yo_dt_b_asin_title_o00_s00?ie=UTF8&psc=1)
+- [local supplier](https://www.oreillyauto.com/search/1998/nissan/frontier?q=MF21219)
 
 #### Pinout
 - Pin A - Empty
 - Pin B - 7-12V DC, 90-115mA
 - Pin C - Ground
 - Pin D Signal
+
+#### Parts List
+- oled display is a generic [0.96" 128X64 I2C OLED](https://www.ebay.com/sch/i.html?_from=R40&_trksid=m570.l1313&_nkw=0.96%22+128X64+I2C+OLED&_sacat=0)
