@@ -42,10 +42,11 @@ Installed sensor in a 1" tube. Only showing inhales
 ![foo](https://github.com/hydronics2/COVID-19-Airflow-Sensor-AFH55M12/blob/master/pics/schematic.PNG)
 
 ### Sensor Availability
-The sensor shows up as multiple part values. It fits a 1998 Nissan Frontier among other years and other vehicles.
+The sensor shows up as multiple part values. It fits a 1998 Nissan/Datsun Truck Frontier 2WD 2.4L FI 4cyl among other years and other vehicles.
 - [China](https://www.aliexpress.com/item/32989444018.html?spm=a2g0o.cart.0.0.74dd3c00g1XL5u&mp=1)
 - [US Supplier](https://www.amazon.com/gp/product/B074FZMGWG/ref=ppx_yo_dt_b_asin_title_o00_s00?ie=UTF8&psc=1)
-- [local supplier](https://www.oreillyauto.com/search/1998/nissan/frontier?q=MF21219)
+- [local supplier oreilly](https://www.oreillyauto.com/search/1998/nissan/frontier?q=MF21219)
+- [local supplier auto-zone](https://www.autozone.com/engine-management/mass-air-flow-sensor/duralast-new-mass-air-flow-sensor-dl-3025/337334_0_4995?&searchText=DL3025)
 
 #### Pinout
 - Pin A - Empty
