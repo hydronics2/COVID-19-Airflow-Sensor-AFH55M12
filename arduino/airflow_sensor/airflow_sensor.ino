@@ -1,15 +1,18 @@
 /*
- * Tested with an Adafruit Feather ESP32 
  * 
- * 
- * Libraries needed:
- * https://github.com/adafruit/Adafruit_SSD1306
- * https://github.com/adafruit/Adafruit-GFX-Library
+ * https://github.com/hydronics2/COVID-19-Airflow-Sensor-AFH55M12
+
+
 */
 
-#include <Adafruit_GFX.h>  // Include core graphics library for the display
-#include <Adafruit_SSD1306.h>  // Include Adafruit_SSD1306 library to drive the display
+#include <Wire.h>
+#include <SPI.h>
+#include <Adafruit_Sensor.h> // https://github.com/adafruit/Adafruit_Sensor
+#include <Adafruit_BME280.h> //https://github.com/adafruit/Adafruit_BME280_Library
 
+#include <Adafruit_GFX.h>  // https://github.com/adafruit/Adafruit-GFX-Library
+#include <Adafruit_SSD1306.h>  // https://github.com/adafruit/Adafruit_SSD1306
+#include <avr/dtostrf.h> //for converting from an integer to a string for the display
 Adafruit_SSD1306 display(128, 64);  // Create display
 
 
@@ -17,7 +20,15 @@ Adafruit_SSD1306 display(128, 64);  // Create display
 #include <Fonts/FreeMonoBoldOblique12pt7b.h>
 #include <Fonts/FreeMono9pt7b.h>  // Add a custom font
 
+//#define SEALEVELPRESSURE_HPA (1013.25)
+#define SEALEVELPRESSURE_HPA (1016.15)
 
+Adafruit_BME280 bme1; // I2C
+Adafruit_BME280 bme2; // I2C
+
+const int errorLED = 5; //itsybitsy M0
+const int userLED = 7; //itsbitsy M0
+const int buzzer = 9; //itsybitsy M0
 
 const int flowSensorPin = A0; 
 int flowSensorValue = 0;   
@@ -44,10 +55,20 @@ int senseInterval = 20;
 double flowSensorCalibration = 0.4;
 double timePeriod;
 
+int pressureReading = 0;
+float pressureReading2 = 0;
 
 void setup()  // Start of setup
 {        
   Serial.begin(115200);
+  analogReadResolution(12); //required for SAMD21
+
+  pinMode(errorLED, OUTPUT);
+  digitalWrite(errorLED, LOW);
+  pinMode(userLED, OUTPUT);
+  digitalWrite(userLED, LOW);
+  pinMode(buzzer, OUTPUT);
+  
   timePeriod = (double)senseInterval/1000; //time period in seconds
   Serial.print("sensing time period(seconds)= ");
   Serial.println(timePeriod);
@@ -64,6 +85,15 @@ void setup()  // Start of setup
                                // scrolling marquee effects), use setTextWrap(false). The normal wrapping behavior is restored
                                // with setTextWrap(true).
   display.dim(0);  //Set brightness (0 is maximun and 1 is a little dim)
+
+  if (! bme1.begin(0x76, &Wire)) {
+    Serial.println("Could not find a valid BME280 sensor, check wiring! for 0x76");
+    while (1);
+  }
+  if (! bme2.begin(0x77, &Wire)) {
+    Serial.println("Could not find a valid BME280 sensor, check wiring! for 0x77");
+    while (1);
+  }
 }  
 
 
@@ -85,11 +115,15 @@ void loop()  // Start of loop
         incrementBreath = 0;
       }else
       {
-        Serial.println(flowSensorValue);
+        Serial.println(flowSensorValue);   
+        digitalWrite(userLED, HIGH);     
         if(incrementBreath == 20) 
         {
           breathFlag = true;
           displayBreath();
+          digitalWrite(errorLED, HIGH);
+          analogWrite(buzzer, 5);
+          pressureReading = bme1.readPressure();
         }
         arrayBreath[incrementBreath] = flowSensorValue;
         incrementBreath++;
@@ -105,7 +139,9 @@ void loop()  // Start of loop
       }
       startBreathFlag = false;
       breathFlag = false;
-
+      digitalWrite(userLED, LOW);
+      digitalWrite(errorLED, LOW);
+      analogWrite(buzzer, 0);
       arrayAverageSmall[incrementRollingSmall] = flowSensorValue; //keep track of the average no-flow sensor value
       incrementRollingSmall++;
       if(incrementRollingSmall == sizeRollingSmall){               
@@ -132,6 +168,12 @@ void loop()  // Start of loop
 
 void calculateBreath()
 {
+  pressureReading = pressureReading - 101625; //subtract current pressure
+  pressureReading2 = (float)pressureReading * 0.0101972; //convert to cm of water
+  Serial.print("pressure reading: ");
+  Serial.println(pressureReading2);
+
+  
   long averageSensorValue = 0;
   for(int i=0; i<sizeRolling; i++)
   {
@@ -163,8 +205,12 @@ void updateDisplay(int flowValue)
   // Convert flowValue into a string, so we can change the text alignment to the right:
   // It can be also used to add or remove decimal numbers.
   char string[10];  // Create a character array of 10 characters
+  char pressure[10];
   // Convert float to a string:
   dtostrf(flowValue, 4, 0, string);  // (<variable>,<amount of digits we are going to use>,<amount of decimal digits>,<string name>)
+  
+  //floatToString(pressure,pressureReading2,0,7,true);
+  //dtostrf(pressureReading2, 4, 0, pressure);
 
   display.clearDisplay();  // Clear the display so we can refresh
 
@@ -195,11 +241,15 @@ void updateDisplay(int flowValue)
   display.setCursor(105, 20);  // (x,y)
   display.println("mL");
 
+  // Print cm
+  display.setCursor(105, 57);  // (x,y)
+  display.println("cm");
+
   // Print variable with right alignment:
-  display.setCursor(48, 57);  // (x,y)
-  //display.println(string);  // Text or value to print
+  display.setCursor(51, 57);  // (x,y)
+  display.println(pressureReading2);  // Text or value to print
   display.setCursor(83, 57);  // (x,y)
-  //display.println(string);  // Text or value to print
+  //display.println(pressure);  // Text or value to print
 
   display.display();  // Print everything we set previously
 }
