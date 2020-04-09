@@ -1,6 +1,8 @@
 /*
  * 
  * https://github.com/hydronics2/COVID-19-Airflow-Sensor-AFH55M12
+ * 
+ * PCB accepts dual footprint feather ESP32 and Adafruit ItsyBitsy M0
 
 
 */
@@ -20,15 +22,28 @@ Adafruit_SSD1306 display(128, 64);  // Create display
 #include <Fonts/FreeMonoBoldOblique12pt7b.h>
 #include <Fonts/FreeMono9pt7b.h>  // Add a custom font
 
-//#define SEALEVELPRESSURE_HPA (1013.25)
-#define SEALEVELPRESSURE_HPA (1016.15)
 
-Adafruit_BME280 bme1; // I2C
-Adafruit_BME280 bme2; // I2C
+#define atmosphericPressure 101625 //need a number (Pascals) here to evaluate BME280... may need a BME280 sensor on the top of the board to get atomospheric
+
+Adafruit_BME280 bme1; // I2C pressure sensor under the display
+Adafruit_BME280 bme2; // I2C pressure sensor on the bottom of the board
+
+//pinouts for Feather esp32
+//const int errorLED = 21; //feather esp32
+//const int userLED = 22; //feather esp32
+//const int buzzer = 23; //feather esp32
+//const int encoder0PinA = 19;  //feather esp32
+//const int encoder0PinB = 20;  //feather esp32
+//const int encoderButton = 25; //feather esp32
+//const int userButton = 24; //feather esp32
 
 const int errorLED = 5; //itsybitsy M0
 const int userLED = 7; //itsbitsy M0
 const int buzzer = 9; //itsybitsy M0
+const int encoder0PinA = 0;  //itsybitsy M0
+const int encoder0PinB = 1;  //itsybitsy M0
+const int encoderButton = 11; //itsybitsy M0
+const int userButton = 10; //itsybitsy M0
 
 const int flowSensorPin = A0; 
 int flowSensorValue = 0;   
@@ -52,7 +67,7 @@ int flowSensorThreshold = 1824; //temporary number
 long lastTimeSense;
 int senseInterval = 20;
 
-double flowSensorCalibration = 0.4;
+double flowSensorCalibration = 0.4; //linear calibration
 double timePeriod;
 
 int pressureReading = 0;
@@ -86,14 +101,15 @@ void setup()  // Start of setup
                                // with setTextWrap(true).
   display.dim(0);  //Set brightness (0 is maximun and 1 is a little dim)
 
-  if (! bme1.begin(0x76, &Wire)) {
+  if (! bme1.begin(0x76, &Wire)) //this is the sensor under the display
+  {
     Serial.println("Could not find a valid BME280 sensor, check wiring! for 0x76");
     while (1);
   }
-  if (! bme2.begin(0x77, &Wire)) {
-    Serial.println("Could not find a valid BME280 sensor, check wiring! for 0x77");
-    while (1);
-  }
+//  if (! bme2.begin(0x77, &Wire)) {
+//    Serial.println("Could not find a valid BME280 sensor, check wiring! for 0x77");
+//    while (1);
+//  }
 }  
 
 
@@ -123,7 +139,7 @@ void loop()  // Start of loop
           displayBreath();
           digitalWrite(errorLED, HIGH);
           analogWrite(buzzer, 5);
-          pressureReading = bme1.readPressure();
+          pressureReading = bme1.readPressure(); //ok lets take a pressure reading now that there is flow
         }
         arrayBreath[incrementBreath] = flowSensorValue;
         incrementBreath++;
@@ -152,9 +168,7 @@ void loop()  // Start of loop
           flowSensorSmallAverage = flowSensorSmallAverage + arrayAverageSmall[i];
         }
         flowSensorSmallAverage = flowSensorSmallAverage/sizeRollingSmall;
-        //Serial.println(flowSensorSmallAverage);
-        arrayAverage[incrementRolling] = flowSensorSmallAverage/10; //make it small enough to be a byte.
-        //Serial.println(arrayAverage[incrementRolling]);
+        arrayAverage[incrementRolling] = flowSensorSmallAverage/10; //make it small enough to fit in a byte array.
         incrementRolling++;
         if(incrementRolling == sizeRolling){
           printAverageSensorValue();
@@ -168,7 +182,7 @@ void loop()  // Start of loop
 
 void calculateBreath()
 {
-  pressureReading = pressureReading - 101625; //subtract current pressure
+  pressureReading = pressureReading - atmosphericPressure; //subtract current pressure
   pressureReading2 = (float)pressureReading * 0.0101972; //convert to cm of water
   Serial.print("pressure reading: ");
   Serial.println(pressureReading2);
@@ -186,15 +200,15 @@ void calculateBreath()
   Serial.print("average sensor value: ");
   Serial.println(averageSensorValue);
   float totalBreath = 0;  
-  for(int i=0; i<incrementBreath; i++)
+  for(int i=0; i<incrementBreath; i++) //evaluate all the flow readings we received over the breath
   {
     float change = (arrayBreath[i] - averageSensorValue)*flowSensorCalibration*timePeriod;
     totalBreath = totalBreath + change;
   }
   
-  Serial.print("increment Breath: ");
+  Serial.print("increment Breath: "); //this is how many flow samples we evaluated
   Serial.println(incrementBreath);
-  Serial.print("volume: ");
+  Serial.print("volume: "); //this is the total volume of all the flow samples
   Serial.println(totalBreath);
   updateDisplay(totalBreath);
 }  
@@ -258,42 +272,14 @@ void displayBreath()
 {
 
   display.clearDisplay();  // Clear the display so we can refresh
-
-  display.setFont(&FreeMonoBoldOblique12pt7b);  // Set a custom font
-  display.setTextSize(0);  // Set text size. We are using a custom font so you should always use the text size of 0
-  // Print text:
-  display.setCursor(0, 20);  // (x,y)
-  display.println("Vt");  // Text or value to print
-  // Draw rectangle:
-  display.drawRect(40, 0, 60, 27, WHITE);  // Draw rectangle (x,y,width,height,color)
-                                           // It draws from the location to down-right   
-  display.setFont(&FreeMonoBold12pt7b);  // Set a custom font  
-  // Print variable with left alignment:
-
-
-
-  // Print text:
-  display.setFont(&FreeMono9pt7b);  // Set a custom font
-  display.setCursor(0, 40);  // (x,y)
-  display.println("PEEP");  // Text or value to print
-  
-  // Print text:
-  display.setFont(&FreeMono9pt7b);  // Set a custom font
-  display.setCursor(0, 57);  // (x,y)
-  display.println("/PIP");  // Text or value to print
-
-  // Print mL
-  display.setCursor(105, 20);  // (x,y)
-  display.println("mL");
-
   // Print variable with right alignment:
   display.setCursor(50,40);  // (x,y)
   display.println("breath");  // Text or value to print
   display.setCursor(50,60);  // (x,y)
   display.println("triggered");  // Text or value to print
-
   display.display();  // Print everything we set previously
 }
+
 
 void printAverageSensorValue()
 {
