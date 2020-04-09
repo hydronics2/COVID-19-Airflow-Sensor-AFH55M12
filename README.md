@@ -13,7 +13,7 @@ Reading from an automotive mass airflow sensor using a microController 12bit ADC
 
 ### --- Updates April 8th -- Assembled PCB, airflow sensor, on 3d print
 
-The model by @john Grano is [here](https://github.com/hydronics2/COVID-19-Airflow-Sensor-AFH55M12/blob/master/3d-prints/MAF Chamber Body V3.stl). Although this appears to prove the technology is working, we're currently pivoting to a manifold type layout...
+The model by @john Grano is [here](https://github.com/hydronics2/COVID-19-Airflow-Sensor-AFH55M12/blob/master/3d-prints/MAF_Chamber_Body_V3.stl). Although this appears to prove the technology is working, we're currently pivoting to a manifold type layout...
 - to centralize all user interface displays next to the mechanical ventilator
 - simplifies to one PCB
 - one power supply
