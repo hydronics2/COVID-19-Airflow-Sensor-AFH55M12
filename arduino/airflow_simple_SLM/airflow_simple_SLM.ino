@@ -41,7 +41,7 @@ Adafruit_BME280 bme2; // I2C pressure sensor on the bottom of the board
 //const int userButton = 24; //feather esp32
 
 const int errorLED = 5; //itsybitsy M0
-const int userLED = 7; //itsbitsy M0
+const int userLED = 7; //itsbitsy M0 
 const int buzzer = 9; //itsybitsy M0
 const int encoder0PinA = 0;  //itsybitsy M0
 const int encoder0PinB = 1;  //itsybitsy M0
@@ -95,25 +95,6 @@ void setup()  // Start of setup
   Serial.println(flowSensorCalibration/10000);
   
   delay(100);  // This delay is needed to let the display to initialize
-  display.begin(SSD1306_SWITCHCAPVCC, 0x3C);  // Initialize display with the I2C address of 0x3C 
-  display.clearDisplay();  // Clear the buffer
-  display.setTextColor(WHITE);  // Set color of the text
-  display.setRotation(0);  // Set orientation. Goes from 0, 1, 2 or 3
-  display.setTextWrap(false);  // By default, long lines of text are set to automatically “wrap” back to the leftmost column.
-                               // To override this behavior (so text will run off the right side of the display - useful for
-                               // scrolling marquee effects), use setTextWrap(false). The normal wrapping behavior is restored
-                               // with setTextWrap(true).
-  display.dim(0);  //Set brightness (0 is maximun and 1 is a little dim)
-
-  if (! bme1.begin(0x76, &Wire)) //this is the sensor under the display
-  {
-    Serial.println("Could not find a valid BME280 sensor, check wiring! for 0x76");
-    while (1);
-  }
-//  if (! bme2.begin(0x77, &Wire)) {
-//    Serial.println("Could not find a valid BME280 sensor, check wiring! for 0x77");
-//    while (1);
-//  }
 }  
 
 
@@ -144,10 +125,7 @@ void loop()  // Start of loop
         if(incrementBreath == 20) 
         {
           breathFlag = true;
-          displayBreath();
           digitalWrite(errorLED, HIGH);
-          analogWrite(buzzer, 5);
-          pressureReading = bme1.readPressure(); //ok lets take a pressure reading now that there is flow
         }
         arrayBreath[incrementBreath] = flowSensorValue;
         incrementBreath++;
@@ -157,10 +135,6 @@ void loop()  // Start of loop
       }
     }else 
     {
-      if(breathFlag) //a breath just finished... calculate the volume
-      {        
-        calculateBreath();
-      }
       startBreathFlag = false;
       breathFlag = false;
       digitalWrite(userLED, LOW);
@@ -188,106 +162,6 @@ void loop()  // Start of loop
 }
 
 
-void calculateBreath()
-{
-  pressureReading = pressureReading - atmosphericPressure; //subtract current pressure
-  pressureReading2 = (float)pressureReading * 0.0101972; //convert to cm of water
-  Serial.print("pressure reading: ");
-  Serial.println(pressureReading2);
-
-  
-  long totalSensorValue = 0;
-  for(int i=0; i<sizeRolling; i++)
-  {
-    totalSensorValue = totalSensorValue + arrayAverage[i];    
-  }
-  totalSensorValue = totalSensorValue/(sizeRolling);
-  averageSensorValue = totalSensorValue*10; // change back into correct magnitude after packaging as a byte
-  Serial.println();
-  Serial.print("average sensor value: ");
-  Serial.println(averageSensorValue);
-  long totalBreath = 0;  
-  for(int i=0; i<incrementBreath; i++) //evaluate all the flow readings we received over the breath
-  {
-    long change = (arrayBreath[i] - averageSensorValue)*flowSensorCalibration*senseInterval*1000/60000; //converts SLM to mL
-    totalBreath = totalBreath + change;
-  }
-  Serial.print("increment Breath: "); //this is how many flow samples we evaluated
-  Serial.println(incrementBreath);
-  Serial.print("volume: "); //this is the total volume of all the flow samples
-  Serial.println((float)totalBreath/10000); //adjust for correct magnitude of calibration factor
-  float totalBreath2 = totalBreath/10000;
-  updateDisplay(totalBreath2/10000);
-}  
-
-
-void updateDisplay(int flowValue)
-{
-  // Convert flowValue into a string, so we can change the text alignment to the right:
-  // It can be also used to add or remove decimal numbers.
-  char string[10];  // Create a character array of 10 characters
-  char pressure[10];
-  // Convert float to a string:
-  dtostrf(flowValue, 4, 0, string);  // (<variable>,<amount of digits we are going to use>,<amount of decimal digits>,<string name>)
-  
-  //floatToString(pressure,pressureReading2,0,7,true);
-  //dtostrf(pressureReading2, 4, 0, pressure);
-
-  display.clearDisplay();  // Clear the display so we can refresh
-
-  display.setFont(&FreeMonoBoldOblique12pt7b);  // Set a custom font
-  display.setTextSize(0);  // Set text size. We are using a custom font so you should always use the text size of 0
-  // Print text:
-  display.setCursor(0, 20);  // (x,y)
-  display.println("Vt");  // Text or value to print
-  // Draw rectangle:
-  display.drawRect(40, 0, 60, 27, WHITE);  // Draw rectangle (x,y,width,height,color)
-                                           // It draws from the location to down-right   
-  display.setFont(&FreeMonoBold12pt7b);  // Set a custom font  
-  // Print variable with left alignment:
-  display.setCursor(42, 20);  // (x,y)
-  display.println(string);  // string for right alignment
-
-  // Print text:
-  display.setFont(&FreeMono9pt7b);  // Set a custom font
-  display.setCursor(0, 40);  // (x,y)
-  display.println("PEEP");  // Text or value to print
-  
-  // Print text:
-  display.setFont(&FreeMono9pt7b);  // Set a custom font
-  display.setCursor(0, 57);  // (x,y)
-  display.println("/PIP");  // Text or value to print
-
-  // Print mL
-  display.setCursor(105, 20);  // (x,y)
-  display.println("mL");
-
-  // Print cm
-  display.setCursor(105, 57);  // (x,y)
-  display.println("cm");
-
-  // Print variable with right alignment:
-  display.setCursor(51, 57);  // (x,y)
-  display.println(pressureReading2);  // Text or value to print
-  display.setCursor(83, 57);  // (x,y)
-  //display.println(pressure);  // Text or value to print
-
-  display.display();  // Print everything we set previously
-}
-
-void displayBreath()
-{
-
-  display.clearDisplay();  // Clear the display so we can refresh
-  // Print variable with right alignment:
-  display.setCursor(50,40);  // (x,y)
-  display.println("breath");  // Text or value to print
-  display.setCursor(50,60);  // (x,y)
-  display.println("triggered");  // Text or value to print
-  display.display();  // Print everything we set previously
-}
-
-
 void printAverageSensorValue()
 {
   averageSensorValue = 0;
@@ -298,9 +172,8 @@ void printAverageSensorValue()
   averageSensorValue = averageSensorValue/(sizeRolling);
   averageSensorValue = averageSensorValue*10; // change back into correct magnitude after packaging as a byte
   Serial.println();
-  Serial.println();
   Serial.print("average sensor value: ");
   Serial.println(averageSensorValue);
-
+  Serial.println();
   flowSensorThreshold = averageSensorValue + 200;
 }
