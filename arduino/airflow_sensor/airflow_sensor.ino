@@ -6,6 +6,7 @@
  * 
  * 
  * //4/15/20 - added SLM output
+ * //4/21/20 - adjusted with Patrick's curve fit calbration equation.
 
 
 */
@@ -135,11 +136,14 @@ void loop()  // Start of loop
         incrementBreath = 0;
       }else
       {
-        int SLM = (flowSensorValue - averageSensorValue)*flowSensorCalibration; //converts SLM 
+        //int SLM = (flowSensorValue - averageSensorValue)*flowSensorCalibration; //converts SLM 
+        float SLM = constrain(17.816955 - .029497326 * flowSensorValue + 1.231863E-5 * sq(flowSensorValue),0,100);
+        
         Serial.print("time: ");
         Serial.print(now);
         Serial.print(" ms, SLM: ");
-        Serial.println((float)SLM/10000); //converts flow sensor calibration back to correct magnitude for printing
+        //Serial.println((float)SLM/10000); //converts flow sensor calibration back to correct magnitude for printing
+        Serial.println(SLM);
         digitalWrite(userLED, HIGH);     
         if(incrementBreath == 20) 
         {
@@ -206,18 +210,20 @@ void calculateBreath()
   Serial.println();
   Serial.print("average sensor value: ");
   Serial.println(averageSensorValue);
-  long totalBreath = 0;  
+  float totalBreath = 0;  
   for(int i=0; i<incrementBreath; i++) //evaluate all the flow readings we received over the breath
   {
-    long change = (arrayBreath[i] - averageSensorValue)*flowSensorCalibration*senseInterval*1000/60000; //converts SLM to mL
+    //long change = (arrayBreath[i] - averageSensorValue)*flowSensorCalibration*senseInterval*1000/60000; //converts SLM to mL
+    float change = (constrain(17.816955-.029497326*arrayBreath[i]+1.231863E-5*sq((float)arrayBreath[i]),0,100))*senseInterval*1000/60000; //converts SLM to mL
     totalBreath = totalBreath + change;
   }
   Serial.print("increment Breath: "); //this is how many flow samples we evaluated
   Serial.println(incrementBreath);
   Serial.print("volume: "); //this is the total volume of all the flow samples
-  Serial.println((float)totalBreath/10000); //adjust for correct magnitude of calibration factor
-  float totalBreath2 = totalBreath/10000;
-  updateDisplay(totalBreath2/10000);
+  //Serial.println((float)totalBreath/10000); //adjust for correct magnitude of calibration factor
+  Serial.println(totalBreath);
+  //float totalBreath2 = totalBreath/10000;
+  updateDisplay(totalBreath);
 }  
 
 
