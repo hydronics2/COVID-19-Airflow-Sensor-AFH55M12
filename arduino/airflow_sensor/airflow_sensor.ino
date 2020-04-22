@@ -7,6 +7,7 @@
  * 
  * //4/15/20 - added SLM output
  * //4/21/20 - adjusted with Patrick's curve fit calbration equation.
+ * //4/21/20 - added one ms to the volume calculation
 
 
 */
@@ -214,7 +215,7 @@ void calculateBreath()
   for(int i=0; i<incrementBreath; i++) //evaluate all the flow readings we received over the breath
   {
     //long change = (arrayBreath[i] - averageSensorValue)*flowSensorCalibration*senseInterval*1000/60000; //converts SLM to mL
-    float change = (constrain(17.816955-.029497326*arrayBreath[i]+1.231863E-5*sq((float)arrayBreath[i]),0,100))*senseInterval*1000/60000; //converts SLM to mL
+    float change = (constrain(17.816955-.029497326*arrayBreath[i]+1.231863E-5*sq((float)arrayBreath[i]),0,100))*(senseInterval+1)*1000/60000; //converts SLM to mL
     totalBreath = totalBreath + change;
   }
   Serial.print("increment Breath: "); //this is how many flow samples we evaluated
