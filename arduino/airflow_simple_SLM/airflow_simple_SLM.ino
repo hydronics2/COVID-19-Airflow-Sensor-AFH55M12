@@ -6,6 +6,7 @@
  * 
  * 
  * //4/15/20 - added SLM output
+ * //4/21/20 - updated with curve fit calibration from Patrick
 
 
 */
@@ -116,11 +117,15 @@ void loop()  // Start of loop
         incrementBreath = 0;
       }else
       {
-        int SLM = (flowSensorValue - averageSensorValue)*flowSensorCalibration; //converts SLM 
+        //int SLM = (flowSensorValue - averageSensorValue)*flowSensorCalibration; //converts SLM 
+        
+        float SLM = constrain(17.816955 - .029497326 * flowSensorValue + 1.231863E-5 * sq(flowSensorValue),0,100);
+        
         Serial.print("time: ");
         Serial.print(now);
         Serial.print(" ms, SLM: ");
-        Serial.println((float)SLM/10000); //converts flow sensor calibration back to correct magnitude for printing
+        //Serial.println((float)SLM/10000); //converts flow sensor calibration back to correct magnitude for printing
+        Serial.println(SLM);
         digitalWrite(userLED, HIGH);     
         if(incrementBreath == 20) 
         {
